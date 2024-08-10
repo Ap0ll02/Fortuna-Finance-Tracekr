@@ -32,11 +32,15 @@ function App() {
     }
   }
 
-  return (
+    return (
+	<div>
     <div className="container">
-      <h1>Fortuna Finance</h1>
-      <Transaction/>
+      <button id="t_btn">Transactions</button>
+	<h1>Fortuna Finance</h1>
+    
     </div>
+            <Transaction/>
+	    </div>
   );
 }
 

@@ -9,15 +9,20 @@ const Transaction = () => {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      handleClick(desc, amt, dt);
+	handleClick(desc, amt, dt);
+	setDesc('');
+	setAmt('');
+	setDt('');
     };
 
     const handleClick = async (desc, amt, dt) => {
         try {
             const description = desc;
-            const amount = amt;
+            const amount = parseFloat(amt);
             const date = dt;
-
+	    if(isNaN(amount)) {
+		throw new Error("You Have Entered an Invalid Number");
+	    }
             const response = await invoke('add_transaction', { description, amount, date });
             console.log(response);
             setLastTransaction({description, amount, date});
@@ -31,7 +36,7 @@ const Transaction = () => {
       {lastTransaction && (
         <p className="desc">Last Transaction: {lastTransaction.description}, ${lastTransaction.amount} on {lastTransaction.date}</p>
       )}
-      <form>
+	<form onSubmit={handleSubmit}>
         <label className='desc'>Input Transaction Name (ex: Morning coffee):</label>
         <br></br>
         <input className='black_btn' type="text" value={desc} onChange={(e) => setDesc(e.target.value)}></input>
@@ -40,10 +45,11 @@ const Transaction = () => {
         <br></br>
         <input className='black_btn' type="text" value={amt} onChange={(e) => setAmt(e.target.value)}></input>
         <br></br>
-        <label className='desc' value={dt} onChange={(e) => setDt(e.target.value)}>Input Transaction Date (DD/MM/YEAR):</label>
+        <label className='desc'>Input Transaction Date (DD/MM/YEAR):</label>
         <br></br>
-        <input className='black_btn' type="text"></input><br></br>
-        <input className="black_btn" type="submit" value="Add Transaction" onSubmit={handleSubmit}></input>
+        <input className='black_btn' type="text"  value={dt} onChange={(e) => setDt(e.target.value)}></input>
+	<br></br>
+        <input id="subBtn" className="black_btn" type="submit" value="Add Transaction"></input>
       </form>
     </div>
   )

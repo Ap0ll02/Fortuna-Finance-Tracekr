@@ -2,7 +2,6 @@
   font-size: 2rem;
   font-family: Kanit, serif;
   background: linear-gradient(to left, rgba(23, 23, 23, 0.8), rgb(25, 25, 25));
-  display: flex-col;
   text-align: center;
   color:aliceblue;
 }
@@ -20,6 +19,35 @@
 #last_t {
   font-size: 1rem;
   color: white;
+}
+.container {
+    display: flex;
+    text-align: flex-start;
+    justify-content: center; 
+}
+#t_btn {
+    margin: 4vh;
+    padding-right: 4vh;
+    padding-left: 4vh;
+    position: absolute;
+    top: 2vh;
+    left: 2vh;
+    font-size: 0.5rem;
+  color: white;
+  background-color: rgba(100, 100, 100, 0.97);
+  font-family: Kanit;
+    border: none;
+  border-radius: 25px;
+    
+}
+
+#t_btn:hover {
+    background-color: rgba(85, 85, 85, 0.7);
+    font-size: 0.505rem; 
+}
+
+#subBtn {
+    margin-top: 5vh;
 }
 
 .desc {
