@@ -46,7 +46,7 @@ const Transaction = () => {
         <input className="black_btn" type="submit" value="Add Transaction" onSubmit={handleSubmit}></input>
       </form>
     </div>
-  );
+  )
 };
 
 export default Transaction
