@@ -4,6 +4,26 @@ import "../App.css";
 const TList = () => {
 
     const [transactions, setTransactions] = useState([]);
+
+    const handleDel = (desc, amt, dt) => {
+	e.preventDefault();
+	deleteTransaction(desc, amt, dt);
+    }
+
+    const deleteTransaction = async (desc, amt, dt) => {
+	try {
+	    const description = desc;
+	    const amount = parseFloat(amt);
+	    const date = dt;
+	    const response = await invoke("del_transaction", {description, amount, date});
+	    console.log(response);
+	    fetchTransactions;
+	}
+	catch (error) {
+	    console.log("Failed To Delete Transaction", error);
+	}
+    }
+    
     const fetchTransactions = async () => {
 	try {
 	    const transactions = await invoke("get_transactions");
@@ -21,23 +41,25 @@ const TList = () => {
     return (
 	<div>
 	    <h1>Transactions</h1>
-            <div className="table">
-                <p className="t_header">Description</p>
-                <p className="t_header">Amount</p>
-                <p className="t_header">Date</p>
-            </div>
-<ul className="t_table">
+	    <div className="t_list_main">
                 {transactions.map((transaction, index) => (
-		<li key={index}>
-		  <p className="t_desc">{transaction.description}</p>
-                    <p className="t_amt">${transaction.amount}</p>
-                    <p className="t_dt">{transaction.date}</p>
-		</li>
+		    <table key={index} className="t_table">
+			<tr>
+			<th className="t_desc">Description</th>
+			<th className="t_amt">Amount</th>
+			    <th className="t_dt">Date</th>
+			    </tr>
+		<tr>
+		  <td className="t_desc">{transaction.description}</td>
+                    <td className="t_amt">${transaction.amount}</td>
+                    <td className="t_dt">{transaction.date}</td>
+		    <td><button className="black_btn" onClick={handleDel}>Delete Transaction</button></td>
+		 </tr>
+		</table>
 	        ))};
-            </ul>
-
 	</div>
-    );
+	</div>
+    )
 };
 
 export default TList;

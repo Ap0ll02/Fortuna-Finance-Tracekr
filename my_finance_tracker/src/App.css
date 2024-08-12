@@ -77,38 +77,29 @@
   text-align: center;
 }
 
+.t_list_main {
+    max-width: 100%;
+    width: 100vw
+}
+
 .t_table {
+    display: flex-col;
     font-size: 1rem;
-    text-align: flex-start;
+    text-align: center;
+    margin: auto;
+    padding: 20px 80px 20px 80px;
+    border: 1px solid;
 }
 
-.t_header {
-    display: flex;
-    margin: 10vh;
-    padding: 4vh;
-    text-align: center;
-    align-items: center;
-}
-
-.table {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
-.t_table li {
-    display: flex;
-    text-align: left;
-    font-size: 1rem;
-    justify-content: flex-start;
-}
 .t_desc {
-    text-align: left;
-    margin: 0px 22vw 0px 20vw;
+    text-align: center;
 }
 .t_amt {
-    text-align: left;
+    text-align: center;
 }
 .t_dt {
-    text-align: left;
-    margin: 0px 6vw 0px 20vw;
+    text-align: center;
+}
+table, th, td {
+    padding: 15px;
 }

@@ -53,6 +53,6 @@ const Transaction = () => {
       </form>
     </div>
   )
-};
+}
 
 export default Transaction
