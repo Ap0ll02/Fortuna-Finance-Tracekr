@@ -76,3 +76,39 @@
   font-family: Kanit;
   text-align: center;
 }
+
+.t_table {
+    font-size: 1rem;
+    text-align: flex-start;
+}
+
+.t_header {
+    display: flex;
+    margin: 10vh;
+    padding: 4vh;
+    text-align: center;
+    align-items: center;
+}
+
+.table {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.t_table li {
+    display: flex;
+    text-align: left;
+    font-size: 1rem;
+    justify-content: flex-start;
+}
+.t_desc {
+    text-align: left;
+    margin: 0px 22vw 0px 20vw;
+}
+.t_amt {
+    text-align: left;
+}
+.t_dt {
+    text-align: left;
+    margin: 0px 6vw 0px 20vw;
+}

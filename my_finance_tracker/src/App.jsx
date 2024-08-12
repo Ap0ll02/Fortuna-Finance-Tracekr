@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 import Transaction from "./components/transaction";
+import TList from "./components/tlist";
 
 function App() {
   async function addTransaction(description, amount, date) {
@@ -33,15 +34,15 @@ function App() {
   }
 
     return (
-	<div>
-    <div className="container">
-      <button id="t_btn">Transactions</button>
-	<h1>Fortuna Finance</h1>
-    
-    </div>
-            <Transaction/>
-	    </div>
-  );
+   <div>
+      <div className="container">
+	  <button id="t_btn">Transactions</button>
+	  <h1>Fortuna Finance</h1>
+      </div>
+       <TList/>
+        <Transaction/>
+   </div>
+  )
 }
 
 export default App;
