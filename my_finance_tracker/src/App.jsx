@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
@@ -15,15 +15,6 @@ function App() {
     }
   }
 
-  async function getTransactions() {
-    try {
-      const transactions = await invoke('get_transactions');
-      console.log(transactions);
-    } catch (error) {
-      console.log('Failed To Get Transactions: ', error)
-    }
-  }
-
   async function delTransaction(description, amount, date) {
     try {
       const response = await invoke("del_transaction", {description, amount, date});
@@ -33,14 +24,29 @@ function App() {
     }
   }
 
+  const [transactions, setTransactions] = useState([]);
+
+  async function fetchTransactions() {
+    try {
+      const transactions = await invoke("get_transactions");
+      setTransactions(transactions);
+    } catch (error) {
+      console.log("Failed To Fetch Transactions", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
+
     return (
    <div>
       <div className="container">
 	  <button id="t_btn">Transactions</button>
 	  <h1>Fortuna Finance</h1>
       </div>
-       <TList/>
-        <Transaction/>
+       <TList transactions = {transactions} onGetT={fetchTransactions}/>
+       <Transaction onGetT={fetchTransactions}/>
    </div>
   )
 }

@@ -1,13 +1,16 @@
 import { invoke } from '@tauri-apps/api/tauri';
 import {useState, useEffect} from 'react';
 import "../App.css";
-const TList = () => {
+const TList = ({transactions, onGetT}) => {
+    const [desc, setDesc] = useState('');
+    const [amt, setAmt] = useState('');
+    const [dt, setDt] = useState('');
 
-    const [transactions, setTransactions] = useState([]);
-
-    const handleDel = (desc, amt, dt) => {
-	e.preventDefault();
-	deleteTransaction(desc, amt, dt);
+    const handleDel = (transaction) => {
+	console.log(transaction.description);
+	console.log(transaction.amount);
+	console.log(transaction.date);
+	deleteTransaction(transaction.description, transaction.amount, transaction.date);
     }
 
     const deleteTransaction = async (desc, amt, dt) => {
@@ -15,28 +18,15 @@ const TList = () => {
 	    const description = desc;
 	    const amount = parseFloat(amt);
 	    const date = dt;
-	    const response = await invoke("del_transaction", {description, amount, date});
+	    const response = await invoke('del_transaction', { description, amount, date });
 	    console.log(response);
-	    fetchTransactions;
+	    
+	    onGetT();
 	}
 	catch (error) {
 	    console.log("Failed To Delete Transaction", error);
 	}
     }
-    
-    const fetchTransactions = async () => {
-	try {
-	    const transactions = await invoke("get_transactions");
-	    setTransactions(transactions);
-	}
-	catch(error){
-	    console.log("Failed To Fetch Transactions", error); 
-	}
-    };
-
-    useEffect(() => {
-	fetchTransactions();
-    }, []);
     
     return (
 	<div>
@@ -53,10 +43,13 @@ const TList = () => {
 		  <td className="t_desc">{transaction.description}</td>
                     <td className="t_amt">${transaction.amount}</td>
                     <td className="t_dt">{transaction.date}</td>
-		    <td><button className="black_btn" onClick={handleDel}>Delete Transaction</button></td>
+		    <td><button className="black_btn" onClick={ () => {
+				    handleDel(transaction);
+				}}
+			>Delete Transaction</button></td>
 		 </tr>
 		</table>
-	        ))};
+	        ))}
 	</div>
 	</div>
     )

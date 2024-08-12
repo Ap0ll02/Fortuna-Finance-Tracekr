@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { invoke } from '@tauri-apps/api/tauri'
 import "../App.css";
-const Transaction = () => {
+const Transaction = ({onGetT}) => {
     const [desc, setDesc] = useState('');
     const [amt, setAmt] = useState('');
     const [dt, setDt] = useState('');
     const [lastTransaction, setLastTransaction] = useState(null);
+    const [transactions, setTransactions] = useState ([]);
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -26,11 +27,12 @@ const Transaction = () => {
             const response = await invoke('add_transaction', { description, amount, date });
             console.log(response);
             setLastTransaction({description, amount, date});
+	    onGetT();
         } catch (error) {
             console.log(error);
         }
     };
-
+    
   return (
     <div>
       {lastTransaction && (
