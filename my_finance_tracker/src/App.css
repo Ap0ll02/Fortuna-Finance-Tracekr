@@ -29,16 +29,17 @@
     position: relative;
     vertical-alignment: top;
     horizontal-alignment: left;
-    width: 60px;
     height: 60px;
-    font-size: 2rem;
+    width: 60px;
+    font-size: 60px;
+    text-align: center;
   color: white;
   background-color: rgba(100, 100, 100, 0.97);
   font-family: Kanit;
-    border: none;
-  border-radius: 30px;
-    
+    border: 1px solid;
+  border-radius: 30px; 
 }
+
 .addForm {
     width: 50vw;
     border-radius: 10px;
