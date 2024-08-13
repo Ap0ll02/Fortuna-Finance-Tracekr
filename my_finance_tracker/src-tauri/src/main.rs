@@ -73,7 +73,7 @@ fn del_transaction(description: String, amount: f64, date: String) -> Result<Str
     let conn = setup_db().map_err(|e| e.to_string())?;
 
     let affected_rows = conn.execute(
-        "DELETE FROM transaction WHERE description = ?1 AND amount = ?2 AND date = ?3",
+        "DELETE FROM transactions WHERE description = ?1 AND amount = ?2 AND date = ?3",
         params![description, amount, date],
     ).map_err(|e| e.to_string())?;
 

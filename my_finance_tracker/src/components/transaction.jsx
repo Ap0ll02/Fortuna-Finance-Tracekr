@@ -34,7 +34,7 @@ const Transaction = ({onGetT}) => {
     };
     
   return (
-    <div>
+    <div className="addForm">
       {lastTransaction && (
         <p className="desc">Last Transaction: {lastTransaction.description}, ${lastTransaction.amount} on {lastTransaction.date}</p>
       )}
