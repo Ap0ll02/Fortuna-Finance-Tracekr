@@ -1,7 +1,7 @@
 import { invoke } from '@tauri-apps/api/tauri';
 import {useState, useEffect} from 'react';
 import "../App.css";
-const TList = ({transactions, onGetT}) => {
+const TList = ({transactions, total, onGetT}) => {
     const [desc, setDesc] = useState('');
     const [amt, setAmt] = useState('');
     const [dt, setDt] = useState('');
@@ -26,8 +26,13 @@ const TList = ({transactions, onGetT}) => {
 	catch (error) {
 	    console.log("Failed To Delete Transaction", error);
 	}
-    }
-    
+    };
+
+    const formatNum = (number) => {
+        return number.toLocaleString();
+    };
+
+
     return (
 	<div>
 	    <h1>Transactions</h1>
@@ -41,7 +46,7 @@ const TList = ({transactions, onGetT}) => {
 			    </tr>
 		<tr>
 		  <td className="t_desc">{transaction.description}</td>
-                    <td className="t_amt">${transaction.amount}</td>
+      <td className="t_amt">${formatNum(transaction.amount)}</td>
                     <td className="t_dt">{transaction.date}</td>
 		    <td><button className="black_btn" onClick={ () => {
 				    handleDel(transaction);
@@ -51,6 +56,10 @@ const TList = ({transactions, onGetT}) => {
 		</table>
 	        ))}
 	</div>
+    <div className="total_text">
+      <p>Total Amount:</p>
+      <p className="green_cash">${formatNum(total)}</p>
+    </div>
 	</div>
     )
 };

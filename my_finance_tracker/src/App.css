@@ -125,3 +125,11 @@
 table, th, td {
     padding: 5px;
 }
+.total_text {
+    display: flex;
+    justify-content: center;
+}
+.green_cash {
+    margin-left: 10px;
+    color: rgb(100, 240, 20);
+}

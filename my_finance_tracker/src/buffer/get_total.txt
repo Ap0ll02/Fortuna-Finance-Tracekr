@@ -1,0 +1,25 @@
+    const [total, setTotal] = useState('');
+    async function getTotal() {
+        try {
+            const total = await invoke("get_total");
+            setTotal(total);
+        } catch (error) {
+            console.log('Error Getting Total',error);
+        }
+    }
+
+And The Backend
+
+#[tauri::command]
+fn get_total() -> Result<f64, String> {
+    let conn = setup_db().map_err(|e| e.to_string())?;
+    let mut stmt = conn.prepare("SELECT sum(amount) FROM transactions").map_err(|e| e.to_string())?;
+    let total_amount: f64 = match stmt.query_row(params![], |row| row.get(0)) {
+        Ok(total) => total,
+        Err(err) => return Err(format!("Failed To Execute Query: {}", err)),
+    };
+
+    Ok(total_amount)
+}
+
+

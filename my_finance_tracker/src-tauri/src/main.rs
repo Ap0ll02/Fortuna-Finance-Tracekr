@@ -41,6 +41,7 @@ fn add_transaction(description: String, amount: f64, date: String) -> Result<Str
     Ok("Transaction Added Successfully".into())
 }
 
+
 #[tauri::command] 
 fn get_transactions() -> Result<Vec<Transaction>, String> {
     let conn = setup_db().map_err(|e| e.to_string())?;
@@ -84,9 +85,21 @@ fn del_transaction(description: String, amount: f64, date: String) -> Result<Str
     Ok("Transaction Deleted Successfully!".into())
 }
 
+#[tauri::command]
+fn get_total() -> Result<f64, String> {
+    let conn = setup_db().map_err(|e| e.to_string())?;
+    let mut stmt = conn.prepare("SELECT sum(amount) FROM transactions").map_err(|e| e.to_string())?;
+    let total_amount: f64 = match stmt.query_row(params![], |row| row.get(0)) {
+        Ok(total) => total,
+        Err(err) => return Err(format!("Failed To Execute Query: {}", err)),
+    };
+
+    Ok(total_amount)
+}
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![add_transaction, get_transactions, del_transaction])
+        .invoke_handler(tauri::generate_handler![add_transaction, get_transactions, del_transaction, get_total])
         .setup(|_app| {
             setup_db().expect("Failed to initialize database");
             Ok(())
